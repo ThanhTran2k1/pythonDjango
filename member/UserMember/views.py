@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import registerForm, loginForm
 from django.views import    View
 from django.contrib.auth.models import User
@@ -39,7 +39,7 @@ class loginUser(View):
 
 def logoutUser(request):
     logout(request)
-    return HttpResponse('you are logout')
+    return redirect('UserMember:loginUser')
 
 class privatePage(LoginRequiredMixin, View):
     login_url = '/login/'
