@@ -11,9 +11,10 @@
     <title>Private Page</title>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
     <div class="container">
-        <a class="navbar-brand" href="#">AIoT</a>
+        <a class="navbar-brand" href="#">Hệ điều hành nhúng</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,26 +32,25 @@
 </nav>
 
 <div class="container">
-    <h2>Only login user can see this</h2>
+    <h2>Bấm nút để điều khiển đèn</h2>
     <div class="text-center" >
-        <div class="mb-2">
-            <button type="button" class="btn btn-outline-success btn-sm">
-                Turn On
-            </button>
-            <button type="button" class="btn btn-outline-danger btn-sm">
-                Turn Off
-            </button>
-        </div>
-        <div>
-            <button type="button" class="btn btn-outline-success btn-sm">
-                Turn On
-            </button>
-            <button type="button" class="btn btn-outline-danger btn-sm">
-                Turn Off
-            </button>
-        </div>
+        {% if curStatus == 'ON'%}
+         <form  action="{% url 'UserMember:sendMQTT' %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-outline-danger btn-sm" type="submit" value="Turn Off LED 1">
+            <input style="display: none" type="text" value="OFF" name="status">
+            <input style="display: none" type="text" value="1" name="led">
+        </form>
+        {% else %}
+        <form  action="{% url 'UserMember:sendMQTT' %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-outline-success btn-sm" type="submit" value="Turn On LED 1">
+            <input style="display: none" type="text" value="ON" name="status">
+            <input style="display: none" type="text" value="1" name="led">
+        </form>
+        {%endif%}
+
     </div>
 </div>
-
 </body>
 </html>

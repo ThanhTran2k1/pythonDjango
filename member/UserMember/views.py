@@ -53,3 +53,12 @@ class privatePage(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'UserMember/private.html')
+
+class sendMQTT(LoginRequiredMixin,View):
+    login_url = '/login/'
+    def post(self,request):
+        status = request.POST['status']
+        led = request.POST['led']
+        curStatus = status
+        return render(request, 'UserMember/private.html', {'curStatus': curStatus})
+

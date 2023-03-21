@@ -12,5 +12,7 @@ class loginForm(forms.Form):
     }))
     password = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={
         "class" : "form-input",
-        "placeholder" : "Mat khau"
+        "placeholder" : "Mật khẩu"
     }))
+
+
