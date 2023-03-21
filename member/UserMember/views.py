@@ -39,8 +39,8 @@ class loginUser(View):
 
 def logoutUser(request):
     logout(request)
-    return HttpResponse('ban da dang xuat')
-@login_required(login_url='/login/')
+    return HttpResponse('you are logout')
+
 class privatePage(LoginRequiredMixin, View):
     login_url = '/login/'
     def get(self,request):
