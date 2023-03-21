@@ -6,5 +6,11 @@ class registerForm(forms.Form):
     password = forms.CharField(max_length=20, widget=forms.PasswordInput)
 
 class loginForm(forms.Form):
-    username = forms.CharField(max_length=20)
-    password = forms.CharField(max_length=20, widget=forms.PasswordInput)
+    username = forms.CharField(max_length=20,widget=forms.TextInput(attrs={
+        "class" : "form-input",
+        "placeholder" : "Tên đăng nhập"
+    }))
+    password = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={
+        "class" : "form-input",
+        "placeholder" : "Mat khau"
+    }))
