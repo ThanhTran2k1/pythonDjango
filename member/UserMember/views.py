@@ -19,10 +19,14 @@ class registerUser(View):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
+        repeatPass = request.POST["repeatPass"]
 
-        user = User.objects.create_user(username, email, password)
-        user.save()
-        return redirect('UserMember:loginUser')
+        if password == repeatPass:
+            user = User.objects.create_user(username, email, password)
+            user.save()
+            return redirect('UserMember:loginUser')
+        else:
+            return redirect('UserMember:registerUser')
 
 
 class loginUser(View):
@@ -54,9 +58,11 @@ class privatePage(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'UserMember/private.html')
 
-class sendMQTT(LoginRequiredMixin,View):
+
+class sendMQTT(LoginRequiredMixin, View):
     login_url = '/login/'
-    def post(self,request):
+
+    def post(self, request):
         status = request.POST['status']
         led = request.POST['led']
         curStatus = status
