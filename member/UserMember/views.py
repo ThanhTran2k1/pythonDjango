@@ -7,7 +7,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+import paho.mqtt.client as paho
+import sys
+import json
 
 # Create your views here.
 class registerUser(View):
@@ -59,12 +61,39 @@ class privatePage(LoginRequiredMixin, View):
         return render(request, 'UserMember/private.html')
 
 
+# MQTT
+client = paho.Client()
+if client.connect("localhost", 1883, 60) != 0:
+    print("Could not connect  to MQTT Broker")
+    sys.exit(-1)
+client.publish("django/mqtt", "Hello Broker", 0)
+
+
 class sendMQTT(LoginRequiredMixin, View):
     login_url = '/login/'
-
     def post(self, request):
         status = request.POST['status']
         led = request.POST['led']
         curStatus = status
+        json_data = {
+            "led": led,
+            "status" : status,
+        }
+        package_data = json.dumps(json_data)
+        client.publish("django/mqtt", package_data, 0)
         return render(request, 'UserMember/private.html', {'curStatus': curStatus})
-S
+class sendMQTT2(LoginRequiredMixin, View):
+    login_url = '/login/'
+    def post(self, request):
+        status = request.POST['status']
+        led = request.POST['led']
+        curStatus = status
+        json_data = {
+            "led": led,
+            "status" : status,
+        }
+        package_data = json.dumps(json_data)
+        client.publish("django/mqtt", package_data, 0)
+        return render(request, 'UserMember/private.html', {'curStatus': curStatus})
+class publishMQTT(LoginRequiredMixin, View):
+    login_url = '/login/'

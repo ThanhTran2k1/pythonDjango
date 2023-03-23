@@ -39,7 +39,7 @@
             {% csrf_token %}
             <input class="btn btn-outline-danger btn-sm" type="submit" value="Turn Off LED 1">
             <input style="display: none" type="text" value="OFF" name="status">
-            <input style="display: none" type="text" value="0" name="led">
+            <input style="display: none" type="text" value="1" name="led">
         </form>
         {% else %}
         <form  action="{% url 'UserMember:sendMQTT' %}" method="post">
@@ -49,8 +49,15 @@
             <input style="display: none" type="text" value="1" name="led">
         </form>
         {%endif%}
-
+    </div>
+    <div>
+        <form action="{% url 'UserMember:publishMQTT' %}" method="post">
+            {% csrf_token %}
+            <input type="submit">
+            <input type="text" name="msgPost">
+        </form>
     </div>
 </div>
+
 </body>
 </html>

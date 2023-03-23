@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap5',
-    'UserMember'
+    'UserMember',
+    'mqtt',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,9 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'UserMember.EmailAuthen.EmailAuthBackend'
 ]
+
+MQTT_SERVER = 'localhost'
+MQTT_PORT = 1883
+MQTT_KEEPALIVE = 60
+MQTT_USER = ''
+MQTT_PASSWORD = ''
