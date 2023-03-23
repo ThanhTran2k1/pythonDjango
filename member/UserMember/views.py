@@ -67,4 +67,4 @@ class sendMQTT(LoginRequiredMixin, View):
         led = request.POST['led']
         curStatus = status
         return render(request, 'UserMember/private.html', {'curStatus': curStatus})
-
+S
