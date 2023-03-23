@@ -9,5 +9,4 @@ urlpatterns = [
     path('logout/', views.logoutUser.as_view(), name = 'logoutUser'),
     path('private/', views.privatePage.as_view(), name = 'privatePage'),
     path('sendMQTT/', views.sendMQTT.as_view(), name = 'sendMQTT'),
-    path('publishMQTT/', views.publishMQTT.as_view(), name = 'publishMQTT'),
 ]

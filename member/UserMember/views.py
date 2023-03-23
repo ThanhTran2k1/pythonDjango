@@ -74,26 +74,10 @@ class sendMQTT(LoginRequiredMixin, View):
     def post(self, request):
         status = request.POST['status']
         led = request.POST['led']
-        curStatus = status
         json_data = {
             "led": led,
             "status" : status,
         }
         package_data = json.dumps(json_data)
         client.publish("django/mqtt", package_data, 0)
-        return render(request, 'UserMember/private.html', {'curStatus': curStatus})
-class sendMQTT2(LoginRequiredMixin, View):
-    login_url = '/login/'
-    def post(self, request):
-        status = request.POST['status']
-        led = request.POST['led']
-        curStatus = status
-        json_data = {
-            "led": led,
-            "status" : status,
-        }
-        package_data = json.dumps(json_data)
-        client.publish("django/mqtt", package_data, 0)
-        return render(request, 'UserMember/private.html', {'curStatus': curStatus})
-class publishMQTT(LoginRequiredMixin, View):
-    login_url = '/login/'
+        return render(request, 'UserMember/private.html')
