@@ -70,7 +70,7 @@ if client.connect("aiot-jsc1.ddns.net", 1889, 60) != 0:
     print("Could not connect  to MQTT Broker")
     sys.exit(-1)
 client.publish("django/mqtt_pub", "Hello Broker123", 1)
-client.on_message = on_message
+
 
 class sendMQTT(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -84,7 +84,8 @@ class sendMQTT(LoginRequiredMixin, View):
             "row": row,
         }
         package_data = json.dumps(json_data)
-        client.publish("django/mqtt_pub", package_data, 0)
+        client.publish("django/mqtt_pub", package_data, 1)
+        client.on_message = on_message
         return render(request, 'UserMember/control.html')
 def postMQTT(request):
     if request.method == 'POST':
