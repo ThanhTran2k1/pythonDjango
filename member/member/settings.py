@@ -129,8 +129,8 @@ AUTHENTICATION_BACKENDS = [
     'UserMember.EmailAuthen.EmailAuthBackend'
 ]
 
-MQTT_SERVER = 'aiot-jsc1.ddns.net'
-MQTT_PORT = 8883
+MQTT_SERVER = 'localhost'
+MQTT_PORT = 1883
 MQTT_KEEPALIVE = 60
-MQTT_USER = 'bangled'
-MQTT_PASSWORD = 'bangled'
+MQTT_USER = ''
+MQTT_PASSWORD = ''

@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-import paho.mqtt.client as paho
+import paho.mqtt.client as mqtt
 import sys
 import json
 
@@ -62,12 +62,15 @@ class privatePage(LoginRequiredMixin, View):
 
 
 # MQTT
-client = paho.Client()
-if client.connect("aiot-jsc1.ddns.net", 8883, 60) != 0:
+client = mqtt.Client("bangled")
+client.username_pw_set("bangled", "bangled")
+def on_message(mqtt_client, userdata, msg):
+   print(f'Received message on topic: {msg.topic} with payload: {msg.payload}')
+if client.connect("aiot-jsc1.ddns.net", 1889, 60) != 0:
     print("Could not connect  to MQTT Broker")
     sys.exit(-1)
-client.publish("django/mqtt", "Hello Broker", 0)
-
+client.publish("django/mqtt_pub", "Hello Broker123", 1)
+client.on_message = on_message
 
 class sendMQTT(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -81,7 +84,7 @@ class sendMQTT(LoginRequiredMixin, View):
             "row": row,
         }
         package_data = json.dumps(json_data)
-        client.publish("django/mqtt", package_data, 0)
+        client.publish("django/mqtt_pub", package_data, 0)
         return render(request, 'UserMember/control.html')
 def postMQTT(request):
     if request.method == 'POST':
