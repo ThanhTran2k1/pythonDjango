@@ -63,7 +63,7 @@ class privatePage(LoginRequiredMixin, View):
 
 # MQTT
 client = paho.Client()
-if client.connect("localhost", 1883, 60) != 0:
+if client.connect("aiot-jsc1.ddns.net", 8883, 60) != 0:
     print("Could not connect  to MQTT Broker")
     sys.exit(-1)
 client.publish("django/mqtt", "Hello Broker", 0)
