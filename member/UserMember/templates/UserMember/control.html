@@ -1,0 +1,32 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{%static 'UserMember/css/main-control.css' %}">
+  <title>Trung tâm điều khiển</title>
+</head>
+<body>
+<form action="{% url 'UserMember:sendMQTT' %}" method="post">
+  {% csrf_token %}
+  <label style="display: block;"  for="text-content">Nội dung</label>
+  <input placeholder="Nhập nội dung bạn muốn hiển thị" type="text" id="text-content" name="textCt">
+  <label style="display: block;" >Tốc độ</label>
+  <input placeholder="Nhập tốc độ cuộn LED" type="number" id="speed-scroll" name="speedCt">
+  <div>
+    <label class="hang-hien-thi" >Chọn hàng hiển thị</label>
+  <p>
+      <strong>Chú ý:</strong> Hàng 1: Chữ sẽ đứng yên. Hàng 2: Chữ sẽ cuộn.
+    </p>
+  </div>
+  <select id="row" name="row">
+  <option value="row-1">Hàng 1</option>
+  <option value="row-2">Hàng 2</option>
+  </select>
+  <input class="btn-submit" type="submit" value="Submit">
+</form>
+
+</body>
+</html>

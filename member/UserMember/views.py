@@ -43,7 +43,7 @@ class loginUser(View):
 
         if user is not None:
             login(request, user)
-            return redirect('UserMember:privatePage')
+            return redirect('UserMember:controlPage')
         else:
             return redirect('UserMember:loginUser')
 
@@ -72,12 +72,28 @@ client.publish("django/mqtt", "Hello Broker", 0)
 class sendMQTT(LoginRequiredMixin, View):
     login_url = '/login/'
     def post(self, request):
-        status = request.POST['status']
-        led = request.POST['led']
+        textCt = request.POST['textCt']
+        speedCt = request.POST['speedCt']
+        row = request.POST['row']
         json_data = {
-            "led": led,
-            "status" : status,
+            "textCt": textCt,
+            "speedCt" : speedCt,
+            "row": row,
         }
         package_data = json.dumps(json_data)
         client.publish("django/mqtt", package_data, 0)
-        return render(request, 'UserMember/private.html')
+        return render(request, 'UserMember/control.html')
+def postMQTT(request):
+    if request.method == 'POST':
+        status = request.POST['status']
+        led = request.POST['led']
+        success = "Success"
+        return HttpResponse(success)
+
+class controlPage(LoginRequiredMixin, View):
+    login_url = '/login/'
+
+    def get(self, request):
+        return render(request, 'UserMember/control.html')
+
+
