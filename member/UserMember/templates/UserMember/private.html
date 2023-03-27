@@ -1,0 +1,103 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{%static 'UserMember/js/click.js' %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>Private Page</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container">
+        <a class="navbar-brand" href="#">Hệ điều hành nhúng</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Home</a>
+            </div>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active text-danger" href="{% url 'UserMember:logoutUser' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+<div class="container">
+    <h2>Bấm nút để điều khiển đèn</h2>
+    <div class="text-center">
+        <div style="" class="button">
+            <div>
+                <img id="anhdep" style="width:100px; high:100px ; margin:50px" src=" {%static 'UserMember/images/denbat1.png' %}" alt="">
+            </div>
+
+            <div style="padding:10px" id="btn1-off">
+
+                <form class="postBtn">
+                    {% csrf_token %}
+                    <input  class="btn btn-outline-danger btn-lg pt-10" type="submit"
+                            onclick="changeImg()" value="Turn Off LED 1">
+                    <input id="status1" style="display:none" type="text" value="OFF" name="status">
+                    <input id="led1" style="display:none" type="text" value="1" name="led">
+                </form>
+            </div>
+            <div style="padding:10px" id="btn1-on">
+                <form class="postBtn">
+                    {% csrf_token %}
+                    <input class="btn btn-outline-success btn-lg" type="submit"
+                           value="Turn On LED 1">
+                    <input style="display:none" type="text" value="ON" name="status">
+                    <input style="display:none" type="text" value="1" name="led">
+                </form>
+            </div>
+
+        </div>
+
+        <div style="" class="button">
+            <div>
+                <img  style="width:100px; high:100px ; margin:50px" src= "{%static 'UserMember/images/denbat1.png' %}" alt="">
+            </div>
+            <div style="padding:10px" class="btn2-off">
+                <form action="{% url 'UserMember:sendMQTT' %}" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-outline-danger btn-lg pt-10" type="submit"
+                           value="Turn Off LED 2">
+                    <input style="display:none" type="text" value="OFF" name="status">
+                    <input style="display:none" type="text" value="2" name="led">
+                </form>
+            </div>
+            <div style="padding:10px" class="btn2-on">
+                <form action="{% url 'UserMember:sendMQTT' %}" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-outline-success btn-lg" type="submit"
+                           value="Turn On LED 2">
+                    <input style="display:none" type="text" value="ON" name="status">
+                    <input style="display:none" type="text" value="2" name="led">
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function changeImg(){
+        var imgs = "{%static 'UserMember/images/dentat.png' %}";
+        document.getElementById('anhdep').src = imgs
+    }
+
+</script>
+</body>
+</html>
