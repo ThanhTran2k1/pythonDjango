@@ -85,8 +85,8 @@ class sendMQTT(LoginRequiredMixin, View):
         }
         package_data = json.dumps(json_data)
         client.publish("django/mqtt_pub", package_data, 1)
-        client.on_message = on_message
         return render(request, 'UserMember/control.html')
+    client.loop_start()
 def postMQTT(request):
     if request.method == 'POST':
         status = request.POST['status']
