@@ -1,5 +1,3 @@
-{%load static%}
-url( "{% static 'images/bg.jpeg' %}")
 body {
     background: url('../images/bg.jpeg');
     background-size: cover;
