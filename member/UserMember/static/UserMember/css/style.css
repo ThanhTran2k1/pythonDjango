@@ -37,19 +37,26 @@ body {
     padding-top: 8px;
     margin-bottom: 8px;
 }
-
+.tendn{
+    width: 331px;
+}
+.recss {
+    width:350px
+}
 .form-input {
     background: transparent;
     border: 0;
     outline: 0;
     color: #fff;
-    flex-grow: 1;
 }
 .form-input::placeholder {
     color: #fff;
 }
+.rekey{
+    font-size:18px
+}
 #eye i {
-    padding-right: 0;
+    padding-right: -3px;
     cursor: pointer;
 }
 .form-submit {
